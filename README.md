@@ -3,4 +3,4 @@
 # Установка
 ### Microsoft Visual Studio
 # Скриншоты
-![Скриншот 1](https://github.com/pkslty/First/blob/main/First/Screenshots/Screenshot%2001.png?raw=true)
+![Скриншот 1](https://github.com/pkslty/TestLD/blob/main/Screenshots/Screenshot01.png?raw=true)
