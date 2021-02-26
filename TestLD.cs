@@ -20,6 +20,7 @@ namespace WindowsFormsApp1
             InitializeComponent();
         }
 
+        
         private void button1_Click(object sender, EventArgs e)
         {
             string port = comboBox1.Text;
@@ -43,15 +44,19 @@ namespace WindowsFormsApp1
             {
                 master.setParameters(port, tensNum);
                 textBox4.Text = "Проверка связи с регистратором";
-                textBox1.Text = "";
-                textBox2.Text = "";
-                textBox3.Text = "";
+                textBox1.Text = " ";
+                textBox2.Text = " ";
+                textBox3.Text = " ";
                 button1.Enabled = false;
+                checkBox1.Enabled = false;
+                checkBox2.Enabled = false;
                 if (master.ReadyToMeasure())
                 {
                     textBox4.Text = master.errorText;
                     master.takeAMeasure();
                     button1.Enabled = true;
+                    checkBox1.Enabled = true;
+                    checkBox2.Enabled = true;
                     textBox4.Text = master.errorText;
                     if (!master.error)
                     {
@@ -62,9 +67,12 @@ namespace WindowsFormsApp1
 
                 }
                 else
+                {
                     textBox4.Text = master.errorText;
-                button1.Enabled = true;
-
+                    button1.Enabled = true;
+                    checkBox1.Enabled = true;
+                    checkBox2.Enabled = true;
+                }
             }
             
         }

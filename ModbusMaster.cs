@@ -100,6 +100,8 @@ namespace WindowsFormsApp1
                 }
             } else
             {
+                if (master != null)
+                    master.Dispose();
                 serialPort.Close();
                 ready = false;
                 setParameters(com, tensNum);
@@ -135,9 +137,13 @@ namespace WindowsFormsApp1
                     error = true;
                     return false;
                 }
-                this.master = ModbusSerialMaster.CreateRtu(serialPort);
+                Console.WriteLine("Создание мастера...");
+                master = ModbusSerialMaster.CreateRtu(serialPort);
+                Console.WriteLine("Завершено");
                 master.Transport.ReadTimeout = timeout;
+                Console.WriteLine("Первое считывание регистров...");
                 holding_register = master.ReadHoldingRegisters(slaveID, startAddress, numOfPoints);
+                Console.WriteLine("Завершено");
                 if (holding_register[0] != 111)
                 {
                     errorText = "ОШИБКА: К порту " + serialPort.PortName + " не подключен регистратор линейных деформаций";
@@ -157,8 +163,12 @@ namespace WindowsFormsApp1
         {
             try
             {
+                Console.WriteLine("Запись койла...");
                 master.WriteSingleCoil(slaveID, coilAddress, true);
+                Console.WriteLine("Завершено");
+                Console.WriteLine("Второе считывание регистров...");
                 holding_register = master.ReadHoldingRegisters(slaveID, startAddress, numOfPoints);
+                Console.WriteLine("Завершено");
                 errorDecoder(holding_register[5]);
             }
             catch (System.TimeoutException)
